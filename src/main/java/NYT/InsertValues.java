@@ -20,12 +20,12 @@ public class InsertValues {
 	static void insertAuthorData() throws Throwable {
 		// Creating the connection using Oracle DB
 		// Note: url syntax is standard, so do grasp
-		String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=MavenApi;encrypt=true;trustServerCertificate=true";
+		String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=MavenApi;encrypt=true;trustServerCertificate=true";
 
 		// Username and password to access DB
 		// Custom initialization
-		String USER = "sa";
-		String PASS = "root";
+		String user = "sa";
+		String pass = "root";
 
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(
@@ -71,7 +71,7 @@ public class InsertValues {
 
 				Driver driver = (Driver) Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
 				DriverManager.registerDriver(driver);
-				con = DriverManager.getConnection(DB_URL, USER, PASS);
+				con = DriverManager.getConnection(databaseUrl, user, pass);
 
 				// Creating a statement
 				Statement st = con.createStatement();
@@ -95,4 +95,90 @@ public class InsertValues {
 
 		}
 	}// End of Function insertAuthorData
+	
+	static void insertArticleData() throws Throwable {
+		// Creating the connection using Oracle DB
+		// Note: url syntax is standard, so do grasp
+		String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=MavenApi;encrypt=true;trustServerCertificate=true";
+
+		// Username and password to access DB
+		// Custom initialization
+		String user = "sa";
+		String pass = "root";
+
+		HttpClient client = HttpClient.newHttpClient();
+		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(
+				"https://api.nytimes.com/svc/mostpopular/v2/shared/1/facebook.json?api-key=dD7hVCpoHahSk3JjnY2uYvDigiRvyniM"))
+				.build();
+		HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+		String jsonString = response.body();
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		JsonParser jasonParserNew = new JsonParser();
+		JsonElement jasonElementNew = jasonParserNew.parse(jsonString);
+		String jsonData = gson.toJson(jasonElementNew); // prettyJson
+		// System.out.println(jsonData);
+		ArticleMain randomAPIVAriable = gson.fromJson(jsonData, ArticleMain.class);
+
+		 //for (Integer i = 0; i < jsonString.length(); i++) { // has length more than
+		// its range // This was an error and it is fixed now
+       int x = randomAPIVAriable.getResults().length;
+		for (Integer i = 0; i <x; i++) {
+						
+			Integer num_results = randomAPIVAriable.getNum_results();
+			String source = randomAPIVAriable.getResults()[i].getSource();
+			String published_date = randomAPIVAriable.getResults()[i].getPublished_date();
+			String section = randomAPIVAriable.getResults()[i].getSection();
+			String byline = randomAPIVAriable.getResults()[i].getByline();
+			String type =  randomAPIVAriable.getResults()[i].getType();
+			String title =  randomAPIVAriable.getResults()[i].getTitle();
+
+			// Inserting data using SQL query
+			String sqlInsertArticle = "insert into ArticleT (num_results,source, published_date, section, byline, type,title)"
+					+ " values('" + num_results + "' ,'" + source + "', '" + published_date + "','"
+					+ section + "' ,' " + byline + "','" + type + "','" + title + "')";
+
+			// Connection class object
+			Connection con = null;
+
+			// Try block to check for exceptions
+			try {
+
+				Driver driver = (Driver) Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
+				DriverManager.registerDriver(driver);
+				con = DriverManager.getConnection(databaseUrl, user, pass);
+
+				// Creating a statement
+				Statement st = con.createStatement();
+
+				// Executing query
+				int s = st.executeUpdate(sqlInsertArticle);
+				if (s >= 1)
+					System.out.println("Inserted successfully : " + sqlInsertArticle);
+				else
+					System.out.println("Insertion failed");
+
+				// Closing the connections
+				con.close();
+			}
+
+			// Catch block to handle exceptions
+			catch (Exception ex) {
+				// Display message when exceptions occurs
+				System.err.println(ex);
+			}
+
+		}
+	}// End of Function insertArticleData
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 } // End of Class InsertValues

@@ -5,4 +5,4 @@ SELECT * From ArticleT;
 
 
 
-DROP TABLE devApiT;
+DROP TABLE ArticleT;

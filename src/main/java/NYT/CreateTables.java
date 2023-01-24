@@ -46,7 +46,6 @@ public class CreateTables {
 			String createTabelArticleSQL = "CREATE TABLE ArticleT " + "(Id INTEGER PRIMARY KEY IDENTITY(1,1), "
 					+ " num_results Integer, " + " source VARCHAR(100), " + " published_date TEXT, "
 					+ " section VARCHAR(100), " + "byline TEXT, "
-					+ " publisher VARCHAR(50), " + "description TEXT, " + " price VARCHAR(10), "
 					+ "type VARCHAR(100), " + "title TEXT)";
 
 			stmt.executeUpdate(createTabelArticleSQL);

@@ -104,14 +104,5 @@ public class FetchAPIRead {
 		}
 	} // End of function readSectionsApi
 
-
-
-
-
-
-
-
-
-
 } // End of Class FetchauthorsAPI
 

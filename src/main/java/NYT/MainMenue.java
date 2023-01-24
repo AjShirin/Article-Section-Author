@@ -7,7 +7,7 @@ public class MainMenue {
 	
 	static void menue() {
 	System.out.println("__________________________________________________________________________________________");
-	System.out.println("Welcome!! To the Article Search API Please Select one of the following options :) :      |");
+	System.out.println("Welcome!! To the Article Search API Please Select one of the following options :) :       |");
 	System.out.println(" 1. Create Author Table in database                                                       |");
 	System.out.println(" 2. Fetch Author API and Read                                                             |");
 	System.out.println(" 3. Insert Author API to database table                                                   |");
@@ -18,7 +18,7 @@ public class MainMenue {
 	System.out.println("*********Sections*********                                                                |");
 	System.out.println(" 7. Create Sections Table in database                                                     |");
 	System.out.println(" 8. Fetch Sections API and Read                                                           |");
-	System.out.println(" 9. Insert Sections API to database table                                                |");
+	System.out.println(" 9. Insert Sections API to database table                                                 |");
 	System.out.println(" 19. Exit System                                                                          |");
 	System.out.println("__________________________________________________________________________________________|");
 }
@@ -75,6 +75,7 @@ public class MainMenue {
 
 			// Insert Articles API to database table
 			case 6:
+				InsertValues.insertArticleData();
 				
 
 				//menue();
