@@ -1,3 +1,8 @@
 USE MavenApi;
-SELECT * From devApiT;
+
+SELECT * From AuthorT;
+SELECT * From ArticleT;
+
+
+
 DROP TABLE devApiT;

@@ -10,13 +10,13 @@ public class CreateTables {
 	static void createAuthorTable() throws Throwable {
 		// Creating the connection using Oracle DB
 		// Note: url syntax is standard, so do grasp
-		String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=MavenApi;encrypt=true;trustServerCertificate=true";
+		String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=MavenApi;encrypt=true;trustServerCertificate=true";
 
 		// Username and password to access DB
 		// Custom initialization
-		String USER = "sa";
-		String PASS = "root";
-		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		String user = "sa";
+		String pass = "root";
+		try (Connection conn = DriverManager.getConnection(databaseUrl, user, pass);
 				Statement stmt = conn.createStatement();) {
 			// Create Table in SQL
 			String createTabelAuthorSQL = "CREATE TABLE AuthorT " + "(Id INTEGER PRIMARY KEY IDENTITY(1,1), "
@@ -31,4 +31,33 @@ public class CreateTables {
 			e.printStackTrace();
 		}
 	}// close createAuthorTable Function
+	static void createArticleTable() throws Throwable {
+		// Creating the connection using Oracle DB
+		// Note: url syntax is standard, so do grasp
+		String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=MavenApi;encrypt=true;trustServerCertificate=true";
+
+		// Username and password to access DB
+		// Custom initialization
+		String user = "sa";
+		String pass = "root";
+		try (Connection conn = DriverManager.getConnection(databaseUrl, user, pass);
+				Statement stmt = conn.createStatement();) {
+			// Create Table in SQL
+			String createTabelArticleSQL = "CREATE TABLE ArticleT " + "(Id INTEGER PRIMARY KEY IDENTITY(1,1), "
+					+ " num_results Integer, " + " source VARCHAR(100), " + " published_date TEXT, "
+					+ " section VARCHAR(100), " + "byline TEXT, "
+					+ " publisher VARCHAR(50), " + "description TEXT, " + " price VARCHAR(10), "
+					+ "type VARCHAR(100), " + "title TEXT)";
+
+			stmt.executeUpdate(createTabelArticleSQL);
+			System.out.println("API Table Created Successfully in Database ... :)");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}// close createArticleTable Function
+
+
+
+
+
 }// End of Class CreateAuthorTable
