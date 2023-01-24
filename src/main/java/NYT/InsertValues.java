@@ -171,6 +171,79 @@ public class InsertValues {
 		}
 	}// End of Function insertArticleData
 	
+	static void insertSectionData() throws Throwable {
+		// Creating the connection using Oracle DB
+		// Note: url syntax is standard, so do grasp
+		String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=MavenApi;encrypt=true;trustServerCertificate=true";
+
+		// Username and password to access DB
+		// Custom initialization
+		String user = "sa";
+		String pass = "root";
+
+		HttpClient client = HttpClient.newHttpClient();
+		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(
+				"https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=dD7hVCpoHahSk3JjnY2uYvDigiRvyniM"))
+				.build();
+		HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+		String jsonString = response.body();
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		JsonParser jasonParserNew = new JsonParser();
+		JsonElement jasonElementNew = jasonParserNew.parse(jsonString);
+		String jsonData = gson.toJson(jasonElementNew); // prettyJson
+		SectionMain randomAPIVAriable = gson.fromJson(jsonData, SectionMain.class);
+
+		 //for (Integer i = 0; i < jsonString.length(); i++) { // has length more than
+		// its range // This was an error and it is fixed now
+      int z = randomAPIVAriable.getResponse().getDocs().length;
+		for (Integer i = 0; i <z; i++) {
+					
+			String lead_paragraph = randomAPIVAriable.getResponse().getDocs()[i].getLead_paragraph();
+			String source = randomAPIVAriable.getResponse().getDocs()[i].getSource();
+			String pub_date = randomAPIVAriable.getResponse().getDocs()[i].getPub_date();
+			String document_type = randomAPIVAriable.getResponse().getDocs()[i].getDocument_type();
+			String section_name = randomAPIVAriable.getResponse().getDocs()[i].getSection_name();
+			String type_of_material =  randomAPIVAriable.getResponse().getDocs()[i].getType_of_material();
+			Integer word_count = randomAPIVAriable.getResponse().getDocs()[i].getWord_count();
+
+			// Inserting data using SQL query
+			String sqlInsertSection = "insert into SectionT (lead_paragraph,source, pub_date, document_type, section_name, type_of_material,word_count)"
+					+ " values('" + lead_paragraph + "' ,'" + source + "', '" + pub_date + "','"
+					+ document_type + "' ,' " + section_name + "','" + type_of_material + "','" + word_count + "')";
+
+			// Connection class object
+			Connection con = null;
+
+			// Try block to check for exceptions
+			try {
+
+				Driver driver = (Driver) Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
+				DriverManager.registerDriver(driver);
+				con = DriverManager.getConnection(databaseUrl, user, pass);
+
+				// Creating a statement
+				Statement st = con.createStatement();
+
+				// Executing query
+				int s = st.executeUpdate(sqlInsertSection);
+				if (s >= 1)
+					System.out.println("Inserted successfully : " + sqlInsertSection);
+				else
+					System.out.println("Insertion failed");
+
+				// Closing the connections
+				con.close();
+			}
+
+			// Catch block to handle exceptions
+			catch (Exception ex) {
+				// Display message when exceptions occurs
+				System.err.println(ex);
+			}
+
+		}
+	}// End of Function insertSectionData
 	
 	
 	

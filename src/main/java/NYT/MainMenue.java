@@ -77,32 +77,30 @@ public class MainMenue {
 			case 6:
 				InsertValues.insertArticleData();
 				
-
-				//menue();
+				menue();
 				break;
-
-							
+			
 				// Create Sections Table in database
 			case 7:
+				CreateTables.createSectionTable();
 				
-				//menue();
+				menue();
 				break;
 
-			// Fetch Articles API and Read
+			// Fetch Section API and Read
 			case 8:
 				System.out.println("Fetching the Sections API and Reading ......!");
 				FetchAPIRead.readSectionsApi();
-
-				
 
 				menue();
 				break;
 
 			// Insert Articles API to database table
 			case 9:
+				InsertValues.insertSectionData();
 				
 
-				//menue();
+				menue();
 				break;
 
 

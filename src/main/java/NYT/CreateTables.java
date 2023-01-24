@@ -54,7 +54,31 @@ public class CreateTables {
 			e.printStackTrace();
 		}
 	}// close createArticleTable Function
+	static void createSectionTable() throws Throwable {
+		// Creating the connection using Oracle DB
+		// Note: url syntax is standard, so do grasp
+		String databaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=MavenApi;encrypt=true;trustServerCertificate=true";
 
+		// Username and password to access DB
+		// Custom initialization
+		String user = "sa";
+		String pass = "root";
+		try (Connection conn = DriverManager.getConnection(databaseUrl, user, pass);
+				Statement stmt = conn.createStatement();) {
+			// Create Table in SQL
+
+			String createTabelSectionSQL = "CREATE TABLE SectionT " + "(Id INTEGER PRIMARY KEY IDENTITY(1,1), "
+					+ " lead_paragraph TEXT, " + " source VARCHAR(100), " + " pub_date VARCHAR(100), "
+					+ " document_type VARCHAR(100), " + "section_name TEXT, "
+					+ " type_of_material TEXT, " + "word_count INTEGER)";
+			
+
+			stmt.executeUpdate(createTabelSectionSQL);
+			System.out.println("API Table Created Successfully in Database ... :)");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}// close createSectionTable Function
 
 
 
