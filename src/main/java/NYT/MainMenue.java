@@ -19,7 +19,13 @@ public class MainMenue {
 	System.out.println(" 7. Create Sections Table in database                                                     |");
 	System.out.println(" 8. Fetch Sections API and Read                                                           |");
 	System.out.println(" 9. Insert Sections API to database table                                                 |");
-	System.out.println(" 19. Exit System                                                                          |");
+	System.out.println(" *******Questions*******                                                                  |");
+	System.out.println(" 10. What are the top 5 sections with the most articles?                                  |");
+	System.out.println(" 11. How many articles were written by each author?                                       |");
+	System.out.println(" 12. What are the top 10 articles with the most views?                                    |");
+	System.out.println(" 13. How many articles were published each month in the year 2021?                        |");
+	System.out.println(" 14. Which section had the most articles published on a particular day?                   |");
+	System.out.println(" 15. Exit System                                                                          |");
 	System.out.println("__________________________________________________________________________________________|");
 }
 
@@ -102,10 +108,49 @@ public class MainMenue {
 
 				menue();
 				break;
+				
+				// What are the top 5 sections with the most articles?  
+			case 10:
+				
+				
 
+				//menue();
+				break;
+				
+				// How many articles were written by each author?
+			case 11:
+				
+				
 
-			// Exit the System
-			case 19:
+				//menue();
+				break;
+				
+				//  What are the top 10 articles with the most views?  
+			case 12:
+				
+				
+
+				//menue();
+				break;
+				
+				// How many articles were published each month in the year 2021? 
+			case 13:
+			
+				
+
+				//menue();
+				break;
+				
+				// Which section had the most articles published on a particular day? 
+			case 14:
+				
+				
+
+				//menue();
+				break;
+				
+				// Exit the System
+			case 15:
 				System.out.println("Exiting The System Bye See you Again :)!...");
 				System.exit(0);
 

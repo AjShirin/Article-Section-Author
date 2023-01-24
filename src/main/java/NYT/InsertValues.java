@@ -244,14 +244,5 @@ public class InsertValues {
 
 		}
 	}// End of Function insertSectionData
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 } // End of Class InsertValues
